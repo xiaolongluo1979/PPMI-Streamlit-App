@@ -7,3 +7,4 @@ pandas>=2.1
 pytest
 streamlit
 seaborn
+joblib
