@@ -355,11 +355,11 @@ with tab3:
             # Save baseline data to CSV file
             import os
             export_dir = "/Users/xiaolongluo/Documents/PPMI/data_exports"
-            os.makedirs(export_dir, exist_ok=True)
+            ## os.makedirs(export_dir, exist_ok=True)
             
-            baseline_filename = f"baseline_data_{st.session_state.baseline_data['PATNO']}.csv"
-            baseline_filepath = os.path.join(export_dir, baseline_filename)
-            baseline_df.to_csv(baseline_filepath, index=False)
+            #baseline_filename = f"baseline_data_{st.session_state.baseline_data['PATNO']}.csv"
+            #baseline_filepath = os.path.join(export_dir, baseline_filename)
+            #baseline_df.to_csv(baseline_filepath, index=False)
             
             # Download baseline data as CSV
             baseline_csv = baseline_df.to_csv(index=False)
