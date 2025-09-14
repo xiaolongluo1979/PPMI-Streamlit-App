@@ -6,4 +6,4 @@ numpy>=1.25
 pandas>=2.1
 pytest
 streamlit
-
+seaborn
