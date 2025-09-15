@@ -20,6 +20,30 @@ import numpy as np
 import seaborn as sns
 import os
 import joblib
+import sys
+
+# Add parent directory to path to import config
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+try:
+    from config import FITTED_MODELS_PATH, DATA_PATH, MODEL_FILES, DATA_FILES
+except ImportError:
+    # Fallback to relative paths if config not available
+    FITTED_MODELS_PATH = "./fittedModels"
+    DATA_PATH = "./data"
+    MODEL_FILES = {
+        'transformer_model': 'ppmi_transformer_model_final.keras',
+        'baseline_scaler': 'baseline_Xnum_scaler.pkl',
+        'dfy_scaler': 'dfy_scaler.pkl',
+        'ynum_means': 'ynum_means.pkl',
+        'mmrm_models': {
+            'NP1PTOT': 'mmrm_model_NP1PTOT.pkl',
+            'NP2PTOT': 'mmrm_model_NP2PTOT.pkl',
+            'NP3TOT': 'mmrm_model_NP3TOT.pkl'
+        }
+    }
+    DATA_FILES = {
+        'complete_data': 'PPMI_complete_with_imputation.csv'
+    }
 
 
 
@@ -623,7 +647,7 @@ def load_and_plot_np2ptot():
     
     # Load the data
     print("Loading data...")
-    df = pd.read_csv('/Users/xiaolongluo/Documents/PPMI/data/PPMI_complete_with_imputation.csv')
+    df = pd.read_csv(os.path.join(DATA_PATH, DATA_FILES['complete_data']))
     
     print(f"Data loaded successfully!")
     print(f"Dataset shape: {df.shape}")
@@ -1373,7 +1397,7 @@ def plot_loss_comparison(all_train_losses, all_val_losses, save_path=None, show_
     return fig
 
 
-def preprocess_baseline_data(baseline_df, fitted_models_path="/Users/xiaolongluo/Documents/PPMI/fittedModels", verbose=True):
+def preprocess_baseline_data(baseline_df, fitted_models_path="./fittedModels", verbose=True):
     """
     Preprocess baseline data for transformer model: handle missing values, create flags, add b_ prefix.
     This is a reusable function that can be used by other parts of the application.
@@ -1486,7 +1510,7 @@ def preprocess_baseline_data(baseline_df, fitted_models_path="/Users/xiaolongluo
     return baseline_processed
 
 
-def load_testing_data(baseline_data=None, longitudinal_data=None, base_path="/Users/xiaolongluo/Documents/PPMI", fitted_models_path="/Users/xiaolongluo/Documents/PPMI/fittedModels"):
+def load_testing_data(baseline_data=None, longitudinal_data=None, base_path="./data", fitted_models_path="./fittedModels"):
     """
     Load testing data and apply the same preprocessing as development data.
     Can accept baseline and longitudinal data directly or load from CSV file.
@@ -1597,7 +1621,7 @@ def load_testing_data(baseline_data=None, longitudinal_data=None, base_path="/Us
 
 
 
-def normalize_testing_data(baseline_df, dfy, Xcat, Xnum, tx, ynum, Xt, fitted_models_path="/Users/xiaolongluo/Documents/PPMI/fittedModels"):
+def normalize_testing_data(baseline_df, dfy, Xcat, Xnum, tx, ynum, Xt, fitted_models_path="./fittedModels"):
     """
     Normalize testing data using the saved scalers from fittedModels:
     - One-hot encode categorical variables (Xcat and tx)
@@ -2022,7 +2046,7 @@ def extend_testing_data_with_future_timepoints(dfy_with_baseline, tvar, ynum, km
     return dfy_extended
 
 
-def impute_testing_data_with_mmrm_models(dfy_extended, ynum, ivar, Xt, fitted_models_path="/Users/xiaolongluo/Documents/PPMI/fittedModels"):
+def impute_testing_data_with_mmrm_models(dfy_extended, ynum, ivar, Xt, fitted_models_path="./fittedModels"):
     """
     Load saved MMRM models and use them to impute missing ynum values in testing data.
     This function is similar to perform_mmrm_analysis but only loads models and imputes values.
@@ -2242,7 +2266,7 @@ def impute_testing_data_with_mmrm_models(dfy_extended, ynum, ivar, Xt, fitted_mo
     return dfy_with_imputed
 
 
-def load_transformer_model(fitted_models_path="/Users/xiaolongluo/Documents/PPMI/fittedModels"):
+def load_transformer_model(fitted_models_path="./fittedModels"):
     """
     Load the pre-trained transformer model from the fittedModels folder.
     
@@ -2483,7 +2507,7 @@ def plot_random_patno_predictions(df1_original_scale, ynum, Xt=['LEDD', 'year'])
     return selected_patno
 
 
-def reverse_scale_predictions(df1, fitted_models_path="/Users/xiaolongluo/Documents/PPMI/fittedModels"):
+def reverse_scale_predictions(df1, fitted_models_path="./fittedModels"):
     """
     Load the baseline_Xnum_scaler.pkl and dfy_scaler.pkl from fittedModels and reverse scale 
     the data back to the original scale.
@@ -2682,7 +2706,7 @@ def get_prediction(df, X_tensor, y_tensor, model, ynum):
 
 
 
-def reverse_scale_predictions(df1, fitted_models_path="/Users/xiaolongluo/Documents/PPMI/fittedModels"):
+def reverse_scale_predictions(df1, fitted_models_path="./fittedModels"):
     """
     Load the baseline_Xnum_scaler.pkl and dfy_scaler.pkl from fittedModels and reverse scale 
     the data back to the original scale.
