@@ -1657,7 +1657,7 @@ def normalize_testing_data(baseline_df, dfy, Xcat, Xnum, tx, ynum, Xt, fitted_mo
         dfy_scaler = None
     
     # 1. Process baseline_df
-    print("\n1. Processing baseline_df...")
+    print("\n1. Processing baseline_df hi 88...")
     
     # Create a copy to avoid modifying original
     baseline_normalized = baseline_df.copy()

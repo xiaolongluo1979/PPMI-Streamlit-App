@@ -8,3 +8,4 @@ pytest
 streamlit
 seaborn
 joblib
+scikit-learn
