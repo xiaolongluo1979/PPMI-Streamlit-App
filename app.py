@@ -197,12 +197,12 @@ with tab1:
         
         with col2:
             cohort = st.selectbox("Cohort Definition", 
-                                options=["SWEDD", "Parkinson's Disease", "Prodromal"], 
+                                options=["Healthy Control", "SWEDD", "Parkinson's Disease", "Prodromal"], 
                                 index=0)
             ledd = st.number_input("LEDD (Levodopa Equivalent Daily Dose)", 
                                  min_value=0.0, max_value=2000.0, value=0.0, step=10.0)
             howlive = st.number_input("How do you live your life day to day?", 
-                                    min_value=1.0, max_value=10.0, value=5.0, step=0.1)
+                                    min_value=1, max_value=6, value=3, step=1, format="%d")
         
         # MDS-UPDRS scores
         st.subheader("MDS-UPDRS Scores")
