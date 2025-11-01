@@ -168,8 +168,16 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🧠 PPMI Data Entry")
-st.markdown("Simple data entry for baseline and longitudinal observations")
+st.title("🧠 PPMI Transformer: AI-Powered Forecasting of Parkinson’s Disease Progression")
+st.markdown("""
+The PPMI Transformer is a web-based application designed to help clinicians and researchers visualize and forecast the progression of Parkinson's disease using generative AI. 
+
+Built on a Transformer-based model trained with longitudinal data from the Parkinson's Progression Markers Initiative (PPMI), the app provides individualized predictions of motor and non-motor symptom trajectories (NP1PTOT, NP2PTOT, and NP3PTOT). 
+
+Users can launch the app directly from https://ppmi-transformer.streamlit.app/ using any web browser—no installation required. The interactive dashboard allows users to enter baseline and follow-up clinical data, view summarized patient histories, and generate predictive trajectories with confidence intervals. 
+
+As new data are entered at subsequent visits, the model refines forecasts to improve predictive accuracy over time. This platform serves as a prototype for digital clinical decision support and research tools that integrate AI-driven disease modeling into routine patient care and clinical trial design.
+""")
 
 # Initialize session state
 if 'baseline_data' not in st.session_state:
